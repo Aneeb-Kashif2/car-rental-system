@@ -33,7 +33,7 @@ export default function Signup() {
         age: parseInt(formData.age, 10),
       };
 
-      const res = await axios.post("http://localhost:8000/signup", dataToSend);
+const res = await axios.post(`${import.meta.env.VITE_API_URL}/signup`, dataToSend);
 
       setAlertMessage(res.data.message || "Signup successful!");
       setAlertType("success");

@@ -50,6 +50,8 @@ connectToMongoDB(process.env.MONGO_URL)
     console.error("MongoDB connection error:", err);
   });
 
+  
+
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
 });

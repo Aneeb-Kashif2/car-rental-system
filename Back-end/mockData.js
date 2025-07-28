@@ -1,10 +1,12 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const Car = require("./models/Car");
 
-mongoose.connect("mongodb://localhost:27017/datahandling", {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
+
 
 const cars = [
   {
