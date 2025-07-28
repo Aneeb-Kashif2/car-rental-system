@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
-import { motion } from "framer-motion"; // Import motion for animations
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+// ✅ Import environment variable
+const API_BASE = import.meta.env.VITE_API_URL;
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -14,14 +17,15 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login", formData, {
+      // ✅ Use API_BASE instead of localhost
+      const response = await axios.post(`${API_BASE}/login`, formData, {
         withCredentials: true,
       });
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
 
-      alert("Login successful!"); // Consider using the AlertDialog for consistency
+      alert("Login successful!");
 
       if (response.data.user.role === "admin") {
         navigate("/admin");
@@ -29,11 +33,10 @@ export default function Login() {
         navigate("/");
       }
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed!"); // Consider using the AlertDialog for consistency
+      alert(err.response?.data?.message || "Login failed!");
     }
   };
 
-  // Animation variants
   const formVariants = {
     hidden: { opacity: 0, x: -50 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
@@ -46,13 +49,12 @@ export default function Login() {
 
   return (
     <section className="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl w-full bg-white rounded-xl shadow-2xl overflow-hidden md:flex flex-row-reverse"> {/* flex-row-reverse to swap sides */}
-        {/* Right Side - Car Image (now on the left due to flex-row-reverse) */}
+      <div className="max-w-6xl w-full bg-white rounded-xl shadow-2xl overflow-hidden md:flex flex-row-reverse">
         <motion.div
           className="md:w-1/2 bg-cover bg-center hidden md:block"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1549740431-7e87b7a59a7f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')", // New high-quality image
+              "url('https://images.unsplash.com/photo-1549740431-7e87b7a59a7f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
           }}
           variants={imageVariants}
           initial="hidden"
@@ -65,7 +67,6 @@ export default function Login() {
           </div>
         </motion.div>
 
-        {/* Left Side - Login Form (now on the right due to flex-row-reverse) */}
         <motion.div
           className="md:w-1/2 p-8 sm:p-12 lg:p-16 flex flex-col justify-center"
           variants={formVariants}

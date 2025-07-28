@@ -6,7 +6,7 @@ const carRoutes = require("./routes/carRoutes");
 const cors = require("cors");
 const userRoutes = require("./routes/UserLoginAndSignupRoute");
 const bookingRoutes = require("./routes/bookingRoutes");
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const cookieParser = require("cookie-parser");
 const adminRoutes = require("./routes/adminRoutes");
 const paymentRoutes = require("./routes/paymentRoutes"); // Import payment routes
@@ -42,7 +42,7 @@ app.get("/test", (req, res) => {
   res.send("everything is fine");
 });
 
-connectToMongoDB('mongodb://localhost:27017/datahandling')
+connectToMongoDB(process.env.MONGO_URL)
   .then(() => {
     console.log("MONGO CONNECTED");
   })
