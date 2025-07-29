@@ -11,7 +11,8 @@ export default function CarProvider({ children }) {
 
   const fetchCars = async () => {
     try {
-const res = await axios.get("http://localhost:8000/api/cars");
+      // Updated to use VITE_API_URL for the backend endpoint
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/cars`);
       setCars(res.data);
       setLoading(false);
     } catch (err) {

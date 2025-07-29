@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import AlertDialog from "./AlertDialog";
+import AlertDialog from "./AlertDialog"; // Assuming this component exists
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -112,7 +112,7 @@ export default function BookingForm({ car, onClose }) {
 
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/payment/create-checkout-session",
+          (`${import.meta.env.VITE_API_URL}/api/payment/create-checkout-session`),
           dataToProcess,
           {
             headers: {
@@ -141,7 +141,7 @@ export default function BookingForm({ car, onClose }) {
       // "Cash" payment method directly proceeds to booking in the database
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/bookings", // This is your existing booking endpoint
+          `${import.meta.env.VITE_API_URL}/api/bookings`, // Updated to use VITE_API_URL
           dataToProcess,
           {
             headers: {

@@ -14,7 +14,7 @@ export default function AllCars() {
           return;
         }
 
-        const res = await axios.get("http://localhost:8000/api/admin/all-cars", { // **Changed to admin endpoint**
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/all-cars`, { // Updated to use VITE_API_URL
           headers: { Authorization: `Bearer ${token}` }, // Send token in header
           withCredentials: true // Important for sending cookies if token is in cookie
         });

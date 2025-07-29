@@ -6,11 +6,16 @@ export default function AllBookings() {
 
   useEffect(() => {
     const fetch = async () => {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:8000/api/bookings/all", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setBookings(res.data);
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/bookings/all`, { // Updated to use VITE_API_URL
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setBookings(res.data);
+      } catch (error) {
+        console.error("Error fetching all bookings:", error);
+        // You might want to add state for error handling and display it to the user
+      }
     };
     fetch();
   }, []);

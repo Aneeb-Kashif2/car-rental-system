@@ -19,7 +19,7 @@ export default function AddCar() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:8000/api/admin/cars", // Updated endpoint
+        `${import.meta.env.VITE_API_URL}/api/admin/cars`, // Updated endpoint to use VITE_API_URL
         car,
         {
           headers: {
@@ -31,12 +31,12 @@ export default function AddCar() {
       );
 
       alert("Car added successfully!");
-      setCar({ 
-        name: "", 
-        brand: "", 
-        rentPerDay: "", 
-        capacity: "", 
-        image: "" 
+      setCar({
+        name: "",
+        brand: "",
+        rentPerDay: "",
+        capacity: "",
+        image: ""
       });
     } catch (err) {
       console.error("Error adding car:", err);

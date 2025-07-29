@@ -1,5 +1,7 @@
-require("dotenv").config();
-
+// Conditionally load dotenv only in developmen
+if (process.env.NODE_ENV !== 'production') {
+  require("dotenv").config();
+}
 const express = require("express");
 const { connectToMongoDB } = require("./connect");
 const carRoutes = require("./routes/carRoutes");
@@ -15,7 +17,7 @@ const { handleWebhook } = require("./controller/paymentController"); // Import h
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [process.env.LOCAL_FRONTEND_URL || "http://localhost:5173", process.env.FRONTEND_URL],
   credentials: true
 }));
 

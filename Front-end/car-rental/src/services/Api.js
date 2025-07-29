@@ -1,8 +1,11 @@
 import axios from "axios";
 
-// Backend is running at localhost:8000
+// Create an Axios instance with the VITE_API_URL as the base URL
 const API = axios.create({
-  baseURL: "http://localhost:8000", // backend
+  baseURL: import.meta.env.VITE_API_URL, // Use the environment variable for the backend URL
 });
 
-export const getAllCars = () => API.get("/"); // this hits the route we made in Express
+// Example function to get all cars using this API instance
+export const getAllCars = () => API.get("/api/cars");
+// Note: The original snippet had API.get("/"), but based on previous components,
+// the endpoint for cars is typically "/api/cars". Adjust as per your backend routes.

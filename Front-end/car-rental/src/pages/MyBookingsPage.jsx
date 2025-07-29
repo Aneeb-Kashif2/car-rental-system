@@ -18,11 +18,11 @@ export default function MyBookingsPage() {
 
         // Make sure your API endpoint matches your backend route
         // e.g., if your backend route for getMyBookings is /api/bookings/my
-       const response = await axios.get("http://localhost:8000/api/bookings/my-bookings", {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-});
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/bookings/my-bookings`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setBookings(response.data);
       } catch (err) {
         console.error("Error fetching my bookings:", err);

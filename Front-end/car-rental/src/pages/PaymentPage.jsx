@@ -1,4 +1,3 @@
-// PaymentPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -138,7 +137,7 @@ export default function PaymentPage() {
       // For this simulation, we proceed directly to booking submission
       // as if the payment gateway processed the details successfully.
       const res = await axios.post(
-        "http://localhost:8000/api/bookings", // Your backend endpoint for booking
+        `${import.meta.env.VITE_API_URL}/api/bookings`, // Your backend endpoint for booking, updated to use VITE_API_URL
         bookingData, // This is the original booking data, payment details are for UI only here
         {
           headers: {
